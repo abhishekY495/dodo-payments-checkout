@@ -7,6 +7,8 @@ export function createCheckoutIframe(
   const parentOrigin = window.location.origin;
   const iframe = document.createElement("iframe");
 
+  console.log("parentOrigin", parentOrigin);
+
   iframe.src = `${checkoutOrigin}?productId=${checkout.productId}&parentOrigin=${encodeURIComponent(parentOrigin)}`;
   iframe.style.cssText = "border: 1px solid black;";
 
