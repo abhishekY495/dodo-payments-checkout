@@ -9,7 +9,7 @@ export function createCheckoutIframe(
 
   console.log("parentOrigin", parentOrigin);
 
-  iframe.src = `${checkoutOrigin}?productId=${checkout.productId}&parentOrigin=${encodeURIComponent(parentOrigin)}`;
+  iframe.src = `${checkoutOrigin}?productId=${checkout.productId}&parentOrigin=${parentOrigin}`;
   iframe.style.cssText = "border: 1px solid black;";
 
   document.body.appendChild(iframe);
