@@ -14,7 +14,7 @@ const IS_DEV = false;
 
 const CHECKOUT_ORIGIN = IS_DEV
   ? "http://localhost:5173"
-  : "https://app-seven-zeta-6ckoa86wu0.vercel.app/";
+  : "https://app-seven-zeta-6ckoa86wu0.vercel.app";
 
 let currentCheckout: Checkout | null = null;
 let currentIframe: HTMLIFrameElement | null = null;
