@@ -83,8 +83,10 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex justify-between items-center">
-        <p className="text-2xl font-semibold">Complete Your Purchase</p>
+      <div className="flex justify-between items-center border-b pb-2 border-neutral-600">
+        <p className="text-2xl font-semibold text-neutral-300">
+          Complete Your Purchase
+        </p>
         <button
           onClick={handleClose}
           className="bg-neutral-700 font-bold text-xs rounded-full h-fit p-1 px-2 pb-1.5 cursor-pointer"
@@ -93,6 +95,19 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
           ✕
         </button>
       </div>
+
+      <div className="flex items-start gap-3">
+        <img
+          src="https://images.unsplash.com/photo-1579541591970-e5780dc6b31f?w=500&auto=format&fit=crop&q=60"
+          alt="Stonehenge 1845 by James Ward"
+          className="w-15 h-15 rounded-lg"
+        />
+        <div>
+          <p className="text-neutral-400">Stonehenge 1845 by James Ward</p>
+          <p className="text-neutral-400">$100</p>
+        </div>
+      </div>
+
       <div>
         <p className="text-sm text-neutral-400 pb-1.5 pl-1">Card information</p>
         <input
@@ -167,10 +182,23 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
       <button
         onClick={handlePay}
         disabled={!isFormValid || paymentState === "processing"}
-        className="bg-green-500 text-black text-sm font-semibold p-2 pb-2.5 rounded w-full cursor-pointer disabled:opacity-50 disabled:bg-neutral-100 disabled:cursor-not-allowed"
+        className="bg-lime-500 text-black text-sm font-semibold p-2 pb-2.5 rounded w-full cursor-pointer disabled:opacity-50 disabled:bg-neutral-100 disabled:cursor-not-allowed"
       >
         {paymentState === "processing" ? "Processing…" : "Pay now"}
       </button>
+
+      <div className="flex flex-col items-center justify-center gap-2 mt-4">
+        <p className="text-center text-sm text-balance text-neutral-500 ">
+          This order process is conducted by our online reseller & Merchant of
+          Record, dodopayments.com, who also handles order-related inquiries and
+          returns.
+        </p>
+        <img
+          src="https://test.checkout.dodopayments.com/images/brand-assets/logo/logo-name-dark.svg"
+          alt="dodo payments logo"
+          className="w-30 opacity-60"
+        />
+      </div>
     </div>
   );
 };

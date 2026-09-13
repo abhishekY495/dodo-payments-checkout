@@ -9,12 +9,12 @@ export const Success = ({ parentOrigin }: { parentOrigin: string }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-16 gap-5">
+    <div className="flex flex-col items-center justify-center my-auto h-screen gap-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 48 48"
-        width="48px"
-        height="48px"
+        width="72px"
+        height="72px"
       >
         <path
           fill="#4caf50"
@@ -25,15 +25,15 @@ export const Success = ({ parentOrigin }: { parentOrigin: string }) => {
           d="M34.602,14.602L21,28.199l-5.602-5.598l-2.797,2.797L21,33.801l16.398-16.402L34.602,14.602z"
         />
       </svg>
-      <div className="text-center space-y-1">
-        <p className="text-xl font-semibold text-white">Payment successful</p>
+      <div className="text-center space-y-1 mb-3">
+        <p className="text-2xl font-semibold text-white">Payment successful</p>
         <p className="text-sm text-neutral-400">
           Your payment has been processed
         </p>
       </div>
       <button
         onClick={doneClickhandler}
-        className="bg-neutral-100 text-black text-sm font-semibold p-1 pb-1.5 px-5 rounded w-fit cursor-pointer"
+        className="bg-neutral-100 text-black font-semibold p-1 pb-1.5 px-5 rounded w-fit cursor-pointer"
       >
         Done
       </button>

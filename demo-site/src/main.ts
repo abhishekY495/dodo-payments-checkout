@@ -2,6 +2,9 @@ declare const DodoPayments: {
   openCheckout(options: Record<string, unknown>): void;
 };
 
+const productPurchaseContainer: HTMLDivElement = document.querySelector(
+  "#product-purchase-container",
+)!;
 const buyBtn: HTMLButtonElement = document.querySelector("#buy-btn")!;
 const dodoPaymentsCheckoutIframeContainer: HTMLDivElement =
   document.querySelector("#dodo-payments-checkout-iframe-container")!;
@@ -22,6 +25,7 @@ function handleOnClose(res: any) {
     onCloseMessage.classList.remove("hidden");
     dodoPaymentsCheckoutIframeContainer.classList.add("hidden");
     dodoPaymentsCheckoutLogsContainer.classList.add("hidden");
+    productPurchaseContainer.classList.remove("hidden");
     return;
   }
 
@@ -29,6 +33,7 @@ function handleOnClose(res: any) {
     paymentCompletedMessage.classList.remove("hidden");
     dodoPaymentsCheckoutIframeContainer.classList.add("hidden");
     dodoPaymentsCheckoutLogsContainer.classList.add("hidden");
+    productPurchaseContainer.classList.remove("hidden");
   }
 }
 
@@ -37,11 +42,14 @@ function handleError(res: any) {
   errorMessageContainer.innerText = res.message;
   dodoPaymentsCheckoutIframeContainer.classList.add("hidden");
   dodoPaymentsCheckoutLogsContainer.classList.add("hidden");
+  productPurchaseContainer.classList.remove("hidden");
 }
 
 buyBtn.addEventListener("click", () => {
   onCloseMessage.classList.add("hidden");
   paymentCompletedMessage.classList.add("hidden");
+  errorMessageContainer.innerText = "";
+  productPurchaseContainer.classList.add("hidden");
   dodoPaymentsCheckoutIframeContainer.classList.remove("hidden");
   dodoPaymentsCheckoutLogsContainer.classList.remove("hidden");
 
