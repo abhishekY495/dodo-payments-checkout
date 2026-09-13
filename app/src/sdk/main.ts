@@ -37,9 +37,9 @@ function openCheckout(checkout: Checkout) {
   currentIframe = createCheckoutIframe(CHECKOUT_ORIGIN, currentCheckout);
 
   checkoutLoadTimeout = setTimeout(() => {
-    if (!currentIframe) return;
+    if (!currentIframe || !currentCheckout) return;
 
-    currentCheckout?.onError?.({
+    currentCheckout.onError?.({
       code: "checkout_load_failed",
       message: "Checkout failed to load. Please try again.",
     });
