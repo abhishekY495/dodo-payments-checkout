@@ -19,14 +19,26 @@ const CHECKOUT_ORIGIN = IS_DEV
 let currentCheckout: Checkout | null = null;
 let currentIframe: HTMLIFrameElement | null = null;
 
-window.addEventListener("message", (e) => {
-  handleMessage(e, CHECKOUT_ORIGIN, currentIframe, currentCheckout);
-});
-
 function openCheckout(checkout: Checkout) {
   currentCheckout = checkout;
   currentIframe = createCheckoutIframe(CHECKOUT_ORIGIN, currentCheckout);
 }
+
+function removeCheckout() {
+  currentIframe?.remove();
+  currentIframe = null;
+  currentCheckout = null;
+}
+
+window.addEventListener("message", (e) => {
+  handleMessage(
+    e,
+    CHECKOUT_ORIGIN,
+    currentIframe,
+    currentCheckout,
+    removeCheckout,
+  );
+});
 
 window.DodoPayments = {
   openCheckout,

@@ -1,6 +1,5 @@
 import type { Checkout } from "../../types/types";
 import { CHECKOUT_STATUS } from "../../utils/constants";
-import { removeCheckout } from "../../utils/remove-checkout";
 import { removeLogs } from "../../utils/remove-logs";
 import { logToElement } from "./logger";
 
@@ -9,6 +8,7 @@ export function handleMessage(
   checkoutOrigin: string,
   currentIframe: HTMLIFrameElement | null,
   currentCheckout: Checkout | null,
+  removeCheckout: () => void,
 ) {
   if (event.origin !== checkoutOrigin) return;
   if (event.source !== currentIframe?.contentWindow) return;
@@ -48,7 +48,7 @@ export function handleMessage(
         `Checkout closed reason: ${reason}`,
       );
       removeLogs(currentCheckout.logsElementId);
-      removeCheckout(currentIframe, currentCheckout);
+      removeCheckout();
       break;
   }
 }
