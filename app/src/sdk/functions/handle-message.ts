@@ -52,13 +52,5 @@ export function handleMessage(
       removeLogs(currentCheckout.logsElementId);
       removeCheckout();
       break;
-
-    case CHECKOUT_STATUS.ERROR:
-      const errMessage = event.data.message;
-      currentCheckout.onError?.({
-        code: "checkout_load_failed",
-        message: errMessage,
-      });
-      break;
   }
 }
