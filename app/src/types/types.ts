@@ -1,6 +1,7 @@
 export type Checkout = {
   productId: string;
   elementId: string;
+  logsElementId: string;
   onSuccess: (data: { sessionId: string }) => void;
   onClose: (data: { reason: "user" }) => void;
   onError: (data: { code: string; message: string }) => void;
