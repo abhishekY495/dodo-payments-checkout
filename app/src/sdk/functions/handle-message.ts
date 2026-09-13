@@ -7,9 +7,6 @@ export function handleMessage(
   currentIframe: HTMLIFrameElement | null,
   currentCheckout: Checkout | null,
 ) {
-  console.log(event.origin);
-  console.log(checkoutOrigin);
-
   if (event.origin !== checkoutOrigin) return;
   if (event.source !== currentIframe?.contentWindow) return;
   if (!currentCheckout) return;
