@@ -7,7 +7,12 @@ export function createCheckoutIframe(
   const parentOrigin = window.location.origin;
   const iframe = document.createElement("iframe");
 
-  iframe.src = `${checkoutOrigin}?productId=${checkout.productId}&parentOrigin=${parentOrigin}`;
+  const params = new URLSearchParams({
+    productId: checkout.productId,
+    parentOrigin,
+  });
+
+  iframe.src = `${checkoutOrigin}?${params}`;
   iframe.style.cssText = `width: 100%; height: 100%;`;
 
   const checkoutElement = document.getElementById(checkout.elementId);
