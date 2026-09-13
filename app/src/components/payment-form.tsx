@@ -57,7 +57,7 @@ export const PaymentForm = () => {
           }
           onBlur={() => setTouched((t) => ({ ...t, card: true }))}
           placeholder="1234 1234 1234 1234"
-          className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-t-md focus:border-green-600 focus:outline-none"
+          className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-t-md focus:border-neutral-400 focus:outline-none"
         />
         <div className="flex">
           <input
@@ -75,7 +75,7 @@ export const PaymentForm = () => {
             }}
             onBlur={() => setTouched((t) => ({ ...t, card: true }))}
             placeholder="MM / YY"
-            className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-bl-md focus:border-green-600 focus:outline-none"
+            className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-bl-md focus:border-neutral-400 focus:outline-none"
           />
           <input
             type="text"
@@ -86,7 +86,7 @@ export const PaymentForm = () => {
             }
             onBlur={() => setTouched((t) => ({ ...t, card: true }))}
             placeholder="CVC"
-            className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-br-md focus:border-green-600 focus:outline-none"
+            className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-br-md focus:border-neutral-400 focus:outline-none"
           />
         </div>
         {cardGroupError && (
@@ -102,7 +102,7 @@ export const PaymentForm = () => {
           onChange={(e) => setCardholderName(e.target.value)}
           onBlur={() => setTouched((t) => ({ ...t, name: true }))}
           placeholder="Name on card"
-          className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-md focus:border-green-600 focus:outline-none"
+          className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-md focus:border-neutral-400 focus:outline-none"
         />
         {nameError && <span className="text-red-400 text-xs">{nameError}</span>}
       </div>
