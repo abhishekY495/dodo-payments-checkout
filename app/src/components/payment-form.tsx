@@ -86,7 +86,7 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
           onBlur={() => setTouched((t) => ({ ...t, card: true }))}
           disabled={paymentState === "processing"}
           placeholder="1234 1234 1234 1234"
-          className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-t-md focus:border-green-600 focus:outline-none disabled:opacity-50"
+          className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-t-md focus:border-neutral-400 focus:outline-none disabled:opacity-50"
         />
         <div className="flex">
           <input
@@ -105,7 +105,7 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
             onBlur={() => setTouched((t) => ({ ...t, card: true }))}
             disabled={paymentState === "processing"}
             placeholder="MM / YY"
-            className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-bl-md focus:border-green-600 focus:outline-none disabled:opacity-50"
+            className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-bl-md focus:border-neutral-400 focus:outline-none disabled:opacity-50"
           />
           <input
             type="text"
@@ -117,7 +117,7 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
             onBlur={() => setTouched((t) => ({ ...t, card: true }))}
             disabled={paymentState === "processing"}
             placeholder="CVC"
-            className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-br-md focus:border-green-600 focus:outline-none disabled:opacity-50"
+            className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-br-md focus:border-neutral-400 focus:outline-none disabled:opacity-50"
           />
         </div>
         {cardGroupError && (
@@ -134,7 +134,7 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
           onBlur={() => setTouched((t) => ({ ...t, name: true }))}
           disabled={paymentState === "processing"}
           placeholder="Name on card"
-          className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-md focus:border-green-600 focus:outline-none disabled:opacity-50"
+          className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-md focus:border-neutral-400 focus:outline-none disabled:opacity-50"
         />
         {nameError && <span className="text-red-400 text-xs">{nameError}</span>}
       </div>
