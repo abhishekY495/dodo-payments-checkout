@@ -7,20 +7,8 @@ export type Checkout = {
   onError: (data: { code: string; message: string }) => void;
 };
 
-export type CheckoutMessage =
-  | {
-      type: "CHECKOUT_READY";
-    }
-  | {
-      type: "CHECKOUT_SUCCESS";
-      sessionId: string;
-    }
-  | {
-      type: "CHECKOUT_ERROR";
-      code: string;
-      message: string;
-    }
-  | {
-      type: "CHECKOUT_CLOSE";
-      reason: "user";
-    };
+export type PaymentState = "idle" | "processing" | "success" | "declined";
+
+export type PaymentResult =
+  | { status: "success"; sessionId: string }
+  | { status: "declined"; code: string; message: string };

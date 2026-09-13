@@ -12,8 +12,7 @@ function App() {
 
   return (
     <div className="bg-neutral-900 flex flex-col gap-5 justify-center h-full w-125 mx-auto">
-      <p className="text-2xl font-semibold">Complete Your Purchase</p>
-      <PaymentForm />
+      <PaymentForm parentOrigin={parentOrigin} />
     </div>
   );
 }

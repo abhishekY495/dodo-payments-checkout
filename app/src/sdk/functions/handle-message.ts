@@ -21,14 +21,17 @@ export function handleMessage(
       currentCheckout.onSuccess({
         sessionId: event.data.sessionId,
       });
-      logToElement(currentCheckout.logsElementId, "Success lets goooooo");
+      logToElement(currentCheckout.logsElementId, "Payment Success");
       break;
 
-    case CHECKOUT_STATUS.ERROR:
+    case CHECKOUT_STATUS.DECLINED:
+      const code = event.data.code;
+      const message = event.data.message;
       currentCheckout.onError({
-        code: event.data.code,
-        message: event.data.message,
+        code,
+        message,
       });
+      logToElement(currentCheckout.logsElementId, `Payment Declined: ${code} `);
       break;
   }
 }
