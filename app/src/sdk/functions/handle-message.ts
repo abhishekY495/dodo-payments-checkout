@@ -27,7 +27,7 @@ export function handleMessage(
     case CHECKOUT_STATUS.DECLINED:
       const code = event.data.code;
       const message = event.data.message;
-      currentCheckout.onError({
+      currentCheckout.onDeclined({
         code,
         message,
       });

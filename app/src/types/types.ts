@@ -4,7 +4,7 @@ export type Checkout = {
   logsElementId: string;
   onSuccess: (data: { sessionId: string }) => void;
   onClose: (data: { reason: "user" }) => void;
-  onError: (data: { code: string; message: string }) => void;
+  onDeclined: (data: { code: string; message: string }) => void;
 };
 
 export type PaymentState = "idle" | "processing" | "success" | "declined";

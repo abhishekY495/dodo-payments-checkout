@@ -11,6 +11,6 @@ buyBtn?.addEventListener("click", () => {
     logsElementId: "dodo-payments-checkout-logs",
     onSuccess: (res: any) => console.log("success", res),
     onClose: (res: any) => console.log("closed", res),
-    onError: (res: any) => console.log("error", res),
+    onDeclined: (res: any) => console.log("error", res),
   });
 });
