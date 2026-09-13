@@ -5,6 +5,7 @@ export type Checkout = {
   onSuccess: (data: { orderId: string }) => void;
   onClose: (data: { reason: "user_closed" | "payment_completed" }) => void;
   onDeclined: (data: { code: string; message: string }) => void;
+  onError: (data: { code: string; message: string }) => void;
 };
 
 export type PaymentState = "idle" | "processing" | "success" | "declined";

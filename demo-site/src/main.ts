@@ -12,6 +12,9 @@ const onCloseMessage: HTMLParagraphElement =
 const paymentCompletedMessage: HTMLParagraphElement = document.querySelector(
   "#payment-completed-message",
 )!;
+const errorMessageContainer: HTMLDivElement = document.querySelector(
+  "#error-message-container",
+)!;
 
 function handleOnClose(res: any) {
   console.log(res);
@@ -29,6 +32,13 @@ function handleOnClose(res: any) {
   }
 }
 
+function handleError(res: any) {
+  console.log(res);
+  errorMessageContainer.innerText = res.message;
+  dodoPaymentsCheckoutIframeContainer.classList.add("hidden");
+  dodoPaymentsCheckoutLogsContainer.classList.add("hidden");
+}
+
 buyBtn.addEventListener("click", () => {
   onCloseMessage.classList.add("hidden");
   paymentCompletedMessage.classList.add("hidden");
@@ -41,6 +51,7 @@ buyBtn.addEventListener("click", () => {
     logsElementId: "dodo-payments-checkout-logs-container",
     onSuccess: (res: any) => console.log("success", res),
     onClose: (res: any) => handleOnClose(res),
-    onDeclined: (res: any) => console.log("error", res),
+    onDeclined: (res: any) => console.log("declined", res),
+    onError: (res: any) => handleError(res),
   });
 });

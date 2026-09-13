@@ -8,6 +8,7 @@ export function handleMessage(
   checkoutOrigin: string,
   currentIframe: HTMLIFrameElement | null,
   currentCheckout: Checkout | null,
+  clearCheckoutLoadTimeout: () => void,
   removeCheckout: () => void,
 ) {
   if (event.origin !== checkoutOrigin) return;
@@ -16,6 +17,7 @@ export function handleMessage(
 
   switch (event.data?.type) {
     case CHECKOUT_STATUS.READY:
+      clearCheckoutLoadTimeout();
       logToElement(currentCheckout.logsElementId, "Checkout ready");
       break;
 
