@@ -2,6 +2,7 @@ export const CHECKOUT_STATUS = {
   READY: "checkout:ready",
   SUCCESS: "checkout:success",
   DECLINED: "checkout:declined",
+  CLOSE: "checkout:close",
 };
 
 export const SUCCESS_CARD = "4242424242424242";

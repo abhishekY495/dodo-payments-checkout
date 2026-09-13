@@ -4,7 +4,7 @@ export function logToElement(elementId: string, message: string) {
   if (!el) return;
 
   const line = document.createElement("div");
-  line.textContent = `${new Date().toLocaleTimeString()} - ${message}`;
+  line.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
 
   el.appendChild(line);
   el.scrollTop = el.scrollHeight;

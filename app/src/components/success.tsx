@@ -1,4 +1,13 @@
-export const Success = () => {
+import { CHECKOUT_STATUS } from "../utils/constants";
+
+export const Success = ({ parentOrigin }: { parentOrigin: string }) => {
+  const doneClickhandler = () => {
+    window.parent.postMessage(
+      { type: CHECKOUT_STATUS.CLOSE, reason: "payment_completed" },
+      parentOrigin,
+    );
+  };
+
   return (
     <div className="flex flex-col items-center justify-center py-16 gap-5">
       <svg
@@ -22,7 +31,10 @@ export const Success = () => {
           Your payment has been processed
         </p>
       </div>
-      <button className="bg-neutral-100 text-black text-sm font-semibold p-1 pb-1.5 px-5 rounded w-fit cursor-pointer">
+      <button
+        onClick={doneClickhandler}
+        className="bg-neutral-100 text-black text-sm font-semibold p-1 pb-1.5 px-5 rounded w-fit cursor-pointer"
+      >
         Done
       </button>
     </div>

@@ -31,15 +31,23 @@
       <!--  -->
       <div class="grid grid-cols-2 gap-4 w-300">
         <div
-          id="dodo-payments-checkout-iframe"
-          class="w-full h-110 border border-neutral-600 p-5 py-8 rounded-lg"
+          id="dodo-payments-checkout-iframe-container"
+          class="hidden w-full h-110 border border-neutral-600 p-5 py-8 rounded-lg"
         ></div>
         <div
-          id="dodo-payments-checkout-logs"
-          class="w-full h-110 border border-neutral-600 p-3 px-5 rounded-lg font-mono overflow-y-auto"
+          id="dodo-payments-checkout-logs-container"
+          class="hidden w-full h-110 border border-neutral-600 p-3 px-5 rounded-lg font-mono overflow-y-auto"
         ></div>
       </div>
     </div>
+    <p id="on-close-message" class="hidden text-center text-lg">
+      Hey, looks like you cancelled purchasing 😭<br />
+      Here's a coupon for you "SUMMER-SALE"
+    </p>
+    <p id="payment-completed-message" class="hidden text-center text-lg">
+      Thanks for purchasing 🥳 <br />
+      Buy Again
+    </p>
     <!--  -->
     <script type="module" src="/src/main.ts"></script>
     <!-- <script src="http://localhost:5173/script.js"></script> -->

@@ -33,5 +33,5 @@ export async function simulatePayment(
     };
   }
 
-  return { status: "success", sessionId: `sess_${crypto.randomUUID()}` };
+  return { status: "success", orderId: `dodo_${crypto.randomUUID()}` };
 }

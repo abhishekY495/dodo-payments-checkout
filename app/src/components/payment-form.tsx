@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { PaymentState } from "../types/types";
 import { CHECKOUT_STATUS } from "../utils/constants";
 import { isValidCardNumber } from "../utils/is-valid-card-number";
@@ -16,6 +16,7 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
   const [cardholderName, setCardholderName] = useState("");
   const [touched, setTouched] = useState({ card: false, name: false });
 
+  const isProcessingRef = useRef(false);
   const [paymentState, setPaymentState] = useState<PaymentState>("idle");
   const [declineMessage, setDeclineMessage] = useState<string | null>(null);
 
@@ -40,7 +41,8 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
   const nameError = touched.name && !nameValid ? "Name is required" : null;
 
   const handlePay = async () => {
-    if (!isFormValid || paymentState === "processing") return;
+    if (!isFormValid || isProcessingRef.current) return;
+    isProcessingRef.current = true;
 
     setPaymentState("processing");
     setDeclineMessage(null);
@@ -50,12 +52,13 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
     if (result.status === "success") {
       setPaymentState("success");
       window.parent.postMessage(
-        { type: CHECKOUT_STATUS.SUCCESS, sessionId: result.sessionId },
+        { type: CHECKOUT_STATUS.SUCCESS, orderId: result.orderId },
         parentOrigin,
       );
     } else {
       setPaymentState("declined");
       setDeclineMessage(result.message);
+      isProcessingRef.current = false;
       window.parent.postMessage(
         {
           type: CHECKOUT_STATUS.DECLINED,
@@ -67,13 +70,29 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
     }
   };
 
+  const handleClose = () => {
+    window.parent.postMessage(
+      { type: CHECKOUT_STATUS.CLOSE, reason: "user_closed" },
+      parentOrigin,
+    );
+  };
+
   if (paymentState === "success") {
-    return <Success />;
+    return <Success parentOrigin={parentOrigin} />;
   }
 
   return (
     <div className="flex flex-col gap-5">
-      <p className="text-2xl font-semibold">Complete Your Purchase</p>
+      <div className="flex justify-between items-center">
+        <p className="text-2xl font-semibold">Complete Your Purchase</p>
+        <button
+          onClick={handleClose}
+          className="bg-neutral-700 font-bold text-xs rounded-full h-fit p-1 px-2 pb-1.5 cursor-pointer"
+          disabled={paymentState === "processing"}
+        >
+          ✕
+        </button>
+      </div>
       <div>
         <p className="text-sm text-neutral-400 pb-1.5 pl-1">Card information</p>
         <input

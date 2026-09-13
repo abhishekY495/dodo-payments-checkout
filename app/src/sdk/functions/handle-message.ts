@@ -1,5 +1,7 @@
 import type { Checkout } from "../../types/types";
 import { CHECKOUT_STATUS } from "../../utils/constants";
+import { removeCheckout } from "../../utils/remove-checkout";
+import { removeLogs } from "../../utils/remove-logs";
 import { logToElement } from "./logger";
 
 export function handleMessage(
@@ -18,10 +20,14 @@ export function handleMessage(
       break;
 
     case CHECKOUT_STATUS.SUCCESS:
+      const orderId = event.data.orderId;
       currentCheckout.onSuccess({
-        sessionId: event.data.sessionId,
+        orderId,
       });
-      logToElement(currentCheckout.logsElementId, "Payment Success");
+      logToElement(
+        currentCheckout.logsElementId,
+        `Payment Success: ${orderId}`,
+      );
       break;
 
     case CHECKOUT_STATUS.DECLINED:
@@ -32,6 +38,17 @@ export function handleMessage(
         message,
       });
       logToElement(currentCheckout.logsElementId, `Payment Declined: ${code} `);
+      break;
+
+    case CHECKOUT_STATUS.CLOSE:
+      const reason = event.data.reason;
+      currentCheckout.onClose({ reason });
+      logToElement(
+        currentCheckout.logsElementId,
+        `Checkout closed reason: ${reason}`,
+      );
+      removeLogs(currentCheckout.logsElementId);
+      removeCheckout(currentIframe, currentCheckout);
       break;
   }
 }
