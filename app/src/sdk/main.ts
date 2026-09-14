@@ -2,6 +2,7 @@ import type { Checkout } from "../types/types";
 import { CHECKOUT_LOAD_TIMEOUT } from "../utils/constants";
 import { createCheckoutIframe } from "./functions/create-checkout-iframe";
 import { handleMessage } from "./functions/handle-message";
+import { logToElement } from "./functions/logger";
 
 declare global {
   interface Window {
@@ -43,6 +44,7 @@ function openCheckout(checkout: Checkout) {
       code: "checkout_load_failed",
       message: "Checkout failed to load. Please try again.",
     });
+    logToElement(currentCheckout.logsElementId, "Checkout failed to load");
 
     currentIframe.remove();
 
