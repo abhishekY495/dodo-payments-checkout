@@ -8,8 +8,6 @@ const productPurchaseContainer: HTMLDivElement = document.querySelector(
 const buyBtn: HTMLButtonElement = document.querySelector("#buy-btn")!;
 const dodoPaymentsCheckoutIframeContainer: HTMLDivElement =
   document.querySelector("#dodo-payments-checkout-iframe-container")!;
-const dodoPaymentsCheckoutLogsContainer: HTMLDivElement =
-  document.querySelector("#dodo-payments-checkout-logs-container")!;
 const onCloseMessage: HTMLParagraphElement =
   document.querySelector("#on-close-message")!;
 const paymentCompletedMessage: HTMLParagraphElement = document.querySelector(
@@ -24,7 +22,6 @@ function handleOnClose(res: any) {
   if (res.reason === "user_closed") {
     onCloseMessage.classList.remove("hidden");
     dodoPaymentsCheckoutIframeContainer.classList.add("hidden");
-    dodoPaymentsCheckoutLogsContainer.classList.add("hidden");
     productPurchaseContainer.classList.remove("hidden");
     return;
   }
@@ -32,7 +29,6 @@ function handleOnClose(res: any) {
   if (res.reason === "payment_completed") {
     paymentCompletedMessage.classList.remove("hidden");
     dodoPaymentsCheckoutIframeContainer.classList.add("hidden");
-    dodoPaymentsCheckoutLogsContainer.classList.add("hidden");
     productPurchaseContainer.classList.remove("hidden");
   }
 }
@@ -41,7 +37,6 @@ function handleError(res: any) {
   console.log(res);
   errorMessageContainer.innerText = res.message;
   dodoPaymentsCheckoutIframeContainer.classList.add("hidden");
-  dodoPaymentsCheckoutLogsContainer.classList.add("hidden");
   productPurchaseContainer.classList.remove("hidden");
 }
 
@@ -51,7 +46,6 @@ buyBtn.addEventListener("click", () => {
   errorMessageContainer.innerText = "";
   productPurchaseContainer.classList.add("hidden");
   dodoPaymentsCheckoutIframeContainer.classList.remove("hidden");
-  dodoPaymentsCheckoutLogsContainer.classList.remove("hidden");
 
   DodoPayments.openCheckout({
     productId: "product_6a51sd",
