@@ -7,14 +7,21 @@ import { formatCardNumber } from "../utils/format-card-number";
 import { isValidCvc } from "../utils/is-valid-cvc";
 import { simulatePayment } from "../utils/simulate-payment";
 import { Success } from "./success";
+import { isValidEmail } from "../utils/is-valid-email";
+import { getCardGroupError } from "../utils/get-card-error";
 
 export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
+  const [email, setEmail] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [expiryMonth, setExpiryMonth] = useState("");
   const [expiryYear, setExpiryYear] = useState("");
   const [cvc, setCvc] = useState("");
   const [cardholderName, setCardholderName] = useState("");
-  const [touched, setTouched] = useState({ card: false, name: false });
+  const [touched, setTouched] = useState({
+    card: false,
+    name: false,
+    email: false,
+  });
 
   const isProcessingRef = useRef(false);
   const [paymentState, setPaymentState] = useState<PaymentState>("idle");
@@ -24,21 +31,30 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
   const expiryValid = isValidExpiry(expiryMonth, expiryYear);
   const cvcValid = isValidCvc(cvc);
   const nameValid = cardholderName.trim().length > 0;
+  const emailValid = isValidEmail(email);
 
-  const isFormValid = cardValid && expiryValid && cvcValid && nameValid;
+  const isFormValid =
+    cardValid && expiryValid && cvcValid && nameValid && emailValid;
 
-  const cardGroupError =
-    touched.card && cardNumber.length === 16 && !cardValid
-      ? "Card number not recognized"
-      : touched.card &&
-          expiryMonth.length === 2 &&
-          expiryYear.length === 2 &&
-          !expiryValid
-        ? "Invalid or expired date"
-        : touched.card && cvc.length === 3 && !cvcValid
-          ? "Invalid CVC"
-          : null;
+  const cardGroupError = getCardGroupError({
+    touched: touched.card,
+    cardNumber,
+    cardValid,
+    expiryMonth,
+    expiryYear,
+    expiryValid,
+    cvc,
+    cvcValid,
+  });
+
   const nameError = touched.name && !nameValid ? "Name is required" : null;
+
+  let emailError: string | null = null;
+  if (touched.email && email.length === 0) {
+    emailError = "Email is required";
+  } else if (touched.email && !emailValid) {
+    emailError = "Enter a valid email address";
+  }
 
   const handlePay = async () => {
     if (!isFormValid || isProcessingRef.current) return;
@@ -106,6 +122,23 @@ export const PaymentForm = ({ parentOrigin }: { parentOrigin: string }) => {
           <p className="text-neutral-400">Stonehenge 1845 by James Ward</p>
           <p className="text-neutral-400">$100</p>
         </div>
+      </div>
+
+      <div>
+        <p className="text-sm text-neutral-400 pb-1.5 pl-1">Email</p>
+        <input
+          type="email"
+          inputMode="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onBlur={() => setTouched((t) => ({ ...t, email: true }))}
+          disabled={paymentState === "processing"}
+          placeholder="you@example.com"
+          className="w-full border border-neutral-700 p-2 px-2.5 text-sm rounded-md focus:border-neutral-400 focus:outline-none disabled:opacity-50"
+        />
+        {emailError && (
+          <span className="text-red-400 text-xs">{emailError}</span>
+        )}
       </div>
 
       <div>
