@@ -1,6 +1,5 @@
 import type { Checkout } from "../../types/types";
 import { CHECKOUT_STATUS } from "../../utils/constants";
-import { removeLogs } from "../../utils/remove-logs";
 import { logToElement } from "./logger";
 
 export function handleMessage(
@@ -49,7 +48,6 @@ export function handleMessage(
         currentCheckout.logsElementId,
         `Checkout closed reason: ${reason}`,
       );
-      removeLogs(currentCheckout.logsElementId);
       removeCheckout();
       break;
   }
